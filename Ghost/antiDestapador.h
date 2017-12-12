@@ -4,6 +4,7 @@
 # include "mapa.h"
 # include "jugador.h"
 # include "constantes.h"
+# include "pantalla.h"
 
 
 class AntiDestapador{
