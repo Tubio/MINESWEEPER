@@ -57,19 +57,19 @@ bool Jugador::validarOpcionUserConfirmacion(char opcionUser)
 
 
 void Jugador::iniciarJugada(){
+	
+	Pantalla pantalla;
 	uint filaUser, colUser;
 	bool quiereModificarJugadas = false;
 	char opcionUser;
 	int puntos = 0;
 
-	std::cout<<std::endl;
-	std::cout << "TURNO JUGADOR: \t"<< this->alias << std::endl;
-	std::cout<<std::endl;
+	pantalla.imprimirTurno(this->alias);
 
 
 	if(this->puntaje>=PUNTAJE_NECESARIO_PARA_JUGADAS_ESPECIALES)
 		quiereModificarJugadas = PreguntarSiQuiereModificarJugadas();
-	else std::cout<<"Puntaje insuficiente para realizar JUGADAS ESPECIALES"<<std::endl;
+	else pantalla.puntajeInsuficiente();
 
 
 	if (quiereModificarJugadas){
@@ -87,9 +87,7 @@ void Jugador::iniciarJugada(){
 
 
 		do{
-			std::cout<<"ingrese 'd' (destapar) || 'm' (marcar) || 'r' retirarse "<<std::endl;
-			std::cin >>opcionUser;
-			std::cout<<std::endl;
+			opcionUser=pantalla.pedirOpcionAUser();
 		}while(this->validarOpcionUser(opcionUser));
 
 
@@ -112,12 +110,10 @@ void Jugador::iniciarJugada(){
 }
 
 bool Jugador::PreguntarSiQuiereModificarJugadas(){
-
+	Pantalla pantalla;
 	char opcionUser;
 	do{
-		std::cout<<"\t.:JUGADA ESPECIAL:.\t.:DESHACER/REHACER"<<std::endl;
-		std::cout<<"Se le restaran "<< COSTO_MODIFICAR << " puntos - CONFIRMAR (S/N) : "<<std::endl;
-		std::cin>>opcionUser;
+		opcionUser=pantalla.verSiQuiereModificarJugadas();
 	}while(this->validarOpcionUserConfirmacion(opcionUser));
 
 	return ((opcionUser == 's') || (opcionUser == 'S'));
