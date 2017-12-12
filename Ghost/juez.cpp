@@ -81,7 +81,7 @@ void Juez::encontrarJugadorQueGanoPorPuntaje(){
 
 	}
 
-	pantalla.mostrarFelicitaciones(jugadores,puntajeMaximo, puntajesMaximosIguales);
+	this->mostrarFelicitaciones(jugadores,puntajeMaximo, puntajesMaximosIguales);
 
 	
 }
@@ -108,7 +108,32 @@ void Juez::crearArchivoConPuntajes(){
 	puntajes.close();
 
 }
+void Juez::mostrarFelicitaciones(ListaCircularCursor<Jugador*>* jugadores,
+									int puntajeMaximo,int puntajesMaximosIguales){
 
+	Pantalla pantalla;
+
+	if(puntajesMaximosIguales == 1){
+		pantalla.imprimirEncabezadoUnicoGanador();
+	}
+	else pantalla.imprimirEncabezadoGanadores();
+
+	jugadores->inicializarCursor();
+
+	uint jugadoresImpresos = 0;
+	Jugador* actual;
+
+	while(jugadores->avanzarCursor() && jugadoresImpresos<puntajesMaximosIguales){
+
+		actual = jugadores->obtenerCursor();
+
+		if(actual->obtenerPuntaje() == puntajeMaximo)	{
+			pantalla.imprimirFelicitacionesHaGanado(actual->obtenerAlias(),actual->obtenerPuntaje());
+			jugadoresImpresos++;
+		}
+	}
+
+}
 
 void Juez::inicializarJuego(){
 	
@@ -180,7 +205,7 @@ void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego){
 
 		jugadorActual->asignarEstado(NO_ESTA_JUGANDO);
 
-		pantalla.mostrarPuntajeDeJugadorQueHaPerdido(jugadorActual);
+		pantalla.mostrarPuntajeDeJugadorQueHaPerdido(jugadorActual->obtenerAlias(),jugadorActual->obtenerPuntaje());
 		
 	}
 
