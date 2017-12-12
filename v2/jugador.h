@@ -29,15 +29,23 @@ private:
 	 * Post: Crea un objeto Jugada y apunta pJugada a jugada.*/
 	void inicializarPunteroAJugada(Mapa* punteroAMapa);
 	
+	/* pre:
+	* post: pregunta al usuario si quiere modificar la jugada y retorna si el jugador quiere modificar
+	* la jugada.
+	*/
 	bool PreguntarSiQuiereModificarJugadas();
 
-
-	bool validarOpcionUser(char opcionUser);
-	bool validarOpcionUserConfirmacion(char opcionUser);
-	/*
-	char pedirOpcionUser();
-
+	/*pre: recibe un char correspondiente a la opcion que ingreso el usuario
+	* post: retorna verdadero si la opcionUser corresponde con alguno de los siguientes valores:
+	* 'd','D', 'm', 'M', 'r', 'R'.
 	*/
+	bool validarOpcionUser(char opcionUser);
+	
+	/*pre: recibe un char correspondiente a la opcion que ingreso el usuario
+	* post:retorna verdadero si la opcionUser corresponde con alguno de los siguientes valores:
+	* 's','S', 'n', 'N'.
+	*/
+	bool validarOpcionUserConfirmacion(char opcionUser);
 	
 
 public:
