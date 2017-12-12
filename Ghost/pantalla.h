@@ -6,13 +6,14 @@
 # include "constantes.h"
 # include "pseudoGrafo.h"
 # include "jugadaLight.h"
-# include "jugador.h"
 # include "listaCircularCursor.h"
 
 
 class Pantalla{
 
 	public:
+
+		// Llamados desde Juez:
 
 		void playGame();
 
@@ -22,14 +23,20 @@ class Pantalla{
 
 		void noSePuedeRetroceder();
 
-		void mostrarPuntajeDeJugadorQueHaPerdido(Jugador* jugadorActual);
+		void mostrarPuntajeDeJugadorQueHaPerdido(char alias, int puntaje);
 
 		void terminoLaPartida();
 
-		void mostrarFelicitaciones(ListaCircularCursor<Jugador*>* jugadores,
-				int puntajeMaximo,uint puntajesMaximosIguales);
-
 		void noHayJugadas();
+
+		void imprimirEncabezadoUnicoGanador();
+
+		void imprimirEncabezadoGanadores();
+
+		void imprimirFelicitacionesHaGanado(char alias, int puntaje);
+
+
+		// Llamados desde Menú:
 
 		char imprimirOpcionesDeMenu();
 
@@ -46,7 +53,25 @@ class Pantalla{
 		char pedirDificultad();
 
 		uint pedirCantidadJugadores();
+
+
+		// Llamados desde Jugador:
+
+		void imprimirTurno(char alias);
+
+		char verSiQuiereModificarJugadas();
+
+		void puntajeInsuficiente();
+
+		void pedirUbicacionAUser(uint &fila, uint &columna);
+
+		char pedirOpcionAUser();
+
+		//Llamados desde antidestapador:
 	
+		void imprimirJugadorRevive(char alias);
+
+
 	private:
 	
 		void imprimirLinea();
