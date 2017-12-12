@@ -3,7 +3,6 @@
 
 # include "mapa.h"
 # include "juez.h"
-
 # include "pantalla.h"
 # include "constantes.h"
 
