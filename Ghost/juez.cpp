@@ -348,13 +348,13 @@ bool Juez::banderaEsCorrecta(Bandera actual,Lista<Mina>*minas){
 	return encontrada;
 }
 
-
+/*
 Juez::~Juez(){
 	
 	this->jugadores->inicializarCursor();
 	Jugador* jugadorActual;
 
-	while( this->jugadores->avanzarCursor() && !(this->jugadores->estaVacia()) ){
+	while(this->jugadores->avanzarCursor() && !(this->jugadores->estaVacia()) ){
 
 		jugadorActual = this->jugadores->obtenerCursor();
 		Jugador* jugadorABorrar;
@@ -365,14 +365,38 @@ Juez::~Juez(){
 		std::cout<<"El jugador: " << alias << " tiene " << puntaje << " puntos." << std::endl;
 		jugadorABorrar = jugadorActual;
 		this->jugadores->avanzarCursor();
-		jugadorActual = this->jugadores->obtenerCursor();
 
-
-		delete jugadorABorrar;
 		this->jugadores->remover(1);
 		
 	}
 	
+	delete this->jugadores;
+	delete this->jugadas;
+} */
+
+Juez::~Juez(){
+
+	Jugador* jugadorActual;
+
+	this->jugadores->inicializarCursor();
+
+	std::cout<<std::endl;
+
+	for(uint i=0;i<jugadores->contarElementos();i++){
+
+		this->jugadores->avanzarCursor();
+		jugadorActual = this->jugadores->obtenerCursor();
+
+		char alias;
+		int puntaje;
+		alias = jugadorActual->obtenerAlias();
+		puntaje = jugadorActual->obtenerPuntaje();
+		std::cout<<"El jugador: " << alias << " tiene " << puntaje << " puntos." << std::endl;
+
+		delete jugadorActual;
+
+	}
+
 	delete this->jugadores;
 	delete this->jugadas;
 }

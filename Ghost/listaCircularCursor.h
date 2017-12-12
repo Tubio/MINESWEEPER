@@ -86,13 +86,18 @@ template<class T> void ListaCircularCursor<T>::insertar(T elementoNuevo, unsigne
 
         if (posicion == 1) {
 
-            nuevo->cambiarSiguiente(this->primero);
-            this->primero = nuevo;
+        	if(tamanio==0){ //verifica si la lista esta vacia
+        		this->primero=nuevo;
+        		nuevo->cambiarSiguiente(nuevo);
+        	}
+        	else{
+        		nuevo->cambiarSiguiente(this->primero);
+        		this->primero = nuevo;
 
-            //para que el ultimo apunte al nuevo primero
-            Nodo<T>* ultimo = this->obtenerNodo(this->tamanio);
-            ultimo->cambiarSiguiente(nuevo);
-
+        		//para que el ultimo apunte al nuevo primero
+        		Nodo<T>* ultimo = this->obtenerNodo(this->tamanio);
+        		ultimo->cambiarSiguiente(nuevo);
+        	}
         } else {
 
             Nodo<T>* anterior = this->obtenerNodo(posicion - 1);
@@ -107,8 +112,10 @@ template<class T> void ListaCircularCursor<T>::insertar(T elementoNuevo, unsigne
     }
 
 }
-
+/*
 template<class T> void ListaCircularCursor<T>::remover(unsigned int posicion){
+
+	  this->inicializarCursor(); //retorna el cursor al principio de la lista
 
 	  if ((posicion > 0) && (posicion <= this->tamanio)) {
 
@@ -132,13 +139,48 @@ template<class T> void ListaCircularCursor<T>::remover(unsigned int posicion){
 			removido=primero;
 			primero=NULL;
 		}
-
 	        delete removido;
 	        this->tamanio--;
 
-	        this->inicializarCursor(); //retorna el cursor al principio de la lista
 	}
+} */
+
+template<class T> void ListaCircularCursor<T>::remover(unsigned int posicion){
+
+	this->inicializarCursor();
+
+	if(posicion>0 && posicion<=this->tamanio){
+
+		Nodo<T>* aBorrar;
+
+		if(posicion==1){
+
+			aBorrar = primero;
+
+			if(this->contarElementos()!=1)
+				primero = primero->obtenerSiguiente();
+			else primero = NULL;
+		}
+		else if(posicion==this->contarElementos()){
+
+			Nodo<T>* nuevoUltimo = this->obtenerNodo(this->contarElementos()-1);
+			aBorrar = nuevoUltimo->obtenerSiguiente();
+			nuevoUltimo->cambiarSiguiente(primero);
+		}
+		else{
+
+			Nodo<T>* anterior = this->obtenerNodo(posicion-1);
+			aBorrar = anterior->obtenerSiguiente();
+			anterior->cambiarSiguiente(aBorrar->obtenerSiguiente());
+		}
+
+		delete aBorrar;
+		this->tamanio--;
+	}
+
+
 }
+
 
 template<class T> void ListaCircularCursor<T>::inicializarCursor(){
 
