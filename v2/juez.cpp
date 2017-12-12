@@ -161,11 +161,6 @@ void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego){
 
 	jugadorActual->iniciarJugada();
 	jugadaActual = jugadorActual->obtenerPJugada();
-
-	if(jugadorActual->obtenerEstado() == REALIZANDO_CAMBIOS){
-
-		jugadorActual->modificarPuntaje(COSTO_MODIFICAR);
-	}
 	
 	while(jugadorActual->obtenerEstado() == REALIZANDO_CAMBIOS){
 
@@ -221,7 +216,10 @@ void Juez::realizarCambios(){
 		if(opcionDeUsuario == 'p' || opcionDeUsuario == 'P'){
 			if(actual!=NULL){
 				puedeHacerCambios= deshacerJugada();
-				tableroDeJuego->mostrarMapa();
+				if (puedeHacerCambios){
+					this->jugadores->obtenerCursor()->modificarPuntaje(COSTO_MODIFICAR);
+					tableroDeJuego->mostrarMapa();
+				}
 			}
 			else{
 				terminoDeHacerCambios = true;
@@ -230,7 +228,10 @@ void Juez::realizarCambios(){
 		}
 		else if(opcionDeUsuario == 'f' || opcionDeUsuario == 'F'){
 			puedeHacerCambios = rehacerJugada();
-			tableroDeJuego->mostrarMapa();
+			if (puedeHacerCambios){
+				this->jugadores->obtenerCursor()->modificarPuntaje(COSTO_MODIFICAR);
+				tableroDeJuego->mostrarMapa();
+			}
 		}
 		else terminoDeHacerCambios = true;
 	}
@@ -301,13 +302,20 @@ void Juez::rehacerParalela(uint posicion){
 
 	char opcion = jugadaARehacer->obtenerOpcion();
 
+	uint puntaje = 0;
+
 	if (opcion == 'm' || opcion == 'M'){
+
 		Marcador marcador(tableroDeJuego);
-		marcador.marcar(jugadaARehacer->obtenerFila(),jugadaARehacer->obtenerColumna());
+		puntaje = marcador.marcar(jugadaARehacer->obtenerFila(),jugadaARehacer->obtenerColumna());
+		this->jugadores->obtenerCursor()->modificarPuntaje(puntaje);
 
 	}else if (opcion == 'd' || opcion == 'D'){
+
 		Destapador destapador(tableroDeJuego);
-		destapador.destapar(jugadaARehacer->obtenerFila(),jugadaARehacer->obtenerColumna());
+		puntaje = destapador.destapar(jugadaARehacer->obtenerFila(),jugadaARehacer->obtenerColumna());
+		if(puntaje == PERDIO_PARTIDA)
+			this->jugadores->obtenerCursor()->asignarEstado(PERDIO_PARTIDA);
 	}
 
 }
@@ -356,7 +364,6 @@ bool Juez::banderaEsCorrecta(Bandera actual,Lista<Mina>*minas){
 
 	return encontrada;
 }
-
 
 Juez::~Juez(){
 
