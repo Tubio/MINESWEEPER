@@ -1,10 +1,12 @@
 #ifndef ANTIDESTAPADOR_H_
 #define ANTIDESTAPADOR_H_
 
+
 # include "mapa.h"
 # include "jugador.h"
 # include "constantes.h"
 # include "mina.h"
+# include "pantalla.h"
 
 
 class AntiDestapador{
