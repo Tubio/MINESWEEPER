@@ -112,38 +112,6 @@ template<class T> void ListaCircularCursor<T>::insertar(T elementoNuevo, unsigne
     }
 
 }
-/*
-template<class T> void ListaCircularCursor<T>::remover(unsigned int posicion){
-
-	  this->inicializarCursor(); //retorna el cursor al principio de la lista
-
-	  if ((posicion > 0) && (posicion <= this->tamanio)) {
-
-	        Nodo<T>* removido;
-		if (posicion!=contarElementos()){
-			if (posicion == 1) {
-
-			    removido = this->primero;
-			    this->primero = removido->obtenerSiguiente();
-
-			    Nodo<T>* ultimo = obtenerNodo(this->tamanio);
-			    ultimo->cambiarSiguiente(this->primero);
-
-			} else {
-
-			    Nodo<T>* anterior = this->obtenerNodo(posicion - 1);
-			    removido = anterior->obtenerSiguiente();
-			    anterior->cambiarSiguiente(removido->obtenerSiguiente());
-			}
-		} else {
-			removido=primero;
-			primero=NULL;
-		}
-	        delete removido;
-	        this->tamanio--;
-
-	}
-} */
 
 template<class T> void ListaCircularCursor<T>::remover(unsigned int posicion){
 
@@ -224,7 +192,7 @@ template<class T> bool ListaCircularCursor<T>::avanzarCursor2(){
 	}
 	else
 	{
-		this->cursor2=this->cursor->obtenerSiguiente();
+		this->cursor2=this->cursor2->obtenerSiguiente();
 	}
 	return (this->cursor2 != NULL);
 }
