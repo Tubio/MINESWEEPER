@@ -19,6 +19,7 @@ uint AntiDestapador::tapar(uint filaJugada,uint columnaJugada)
 }
 
 int AntiDestapador::puntajeAltapar(){
+	Pantalla pantalla;
 	int puntaje=0;
 	if(this->mapa->estaDestapadaLaCasilla(this->fila, this->columna)){
 		char valorCasilla = mapa->obtenerValorCasilla(this->fila, this->columna);
@@ -30,6 +31,7 @@ int AntiDestapador::puntajeAltapar(){
 
 			if(valorCasilla==MINA)
 			this->jugador->asignarEstado(SIGUE_JUGANDO);
+			pantalla.imprimirJugadorRevive(this->jugador->obtenerAlias());
 
 			this->mapa->eliminarCasillaDestapada(this->fila, this->columna);
 			puntaje = taparCasillaNoVacia(valorCasilla);
