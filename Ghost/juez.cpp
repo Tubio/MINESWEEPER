@@ -241,7 +241,6 @@ bool Juez::deshacerJugada(){
 	do{
 		this->jugadores->avanzarCursor2();
 		jugadorActual = this->jugadores->obtenerCursor2();
-		alias = jugadorActual->obtenerAlias();
 	} while(jugadorActual->obtenerAlias() != alias);
 	
 
