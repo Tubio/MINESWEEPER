@@ -29,9 +29,10 @@ int AntiDestapador::puntajeAltapar(){
 		}
 		else{
 
-			if(valorCasilla==MINA)
+			if(valorCasilla==MINA){
 			this->jugador->asignarEstado(SIGUE_JUGANDO);
 			pantalla.imprimirJugadorRevive(this->jugador->obtenerAlias());
+			}
 
 			this->mapa->eliminarCasillaDestapada(this->fila, this->columna);
 			puntaje = taparCasillaNoVacia(valorCasilla);
