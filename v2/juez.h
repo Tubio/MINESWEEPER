@@ -113,6 +113,12 @@ class Juez{
 		* apuntando a la jugada que se rehizo.
 		*/
 		void rehacerParalela(uint posicion);
+	
+		/* muestra por pantalla las felicitaciones respectivas del jugador que gano por puntaje, y si hay empate lo muestra 
+		* por pantalla.
+		*/
+		void mostrarFelicitaciones(ListaCircularCursor<Jugador*>* jugadores,
+									int puntajeMaximo,int puntajesMaximosIguales);
 };
 
 #endif /* JUEZ_H_ */
