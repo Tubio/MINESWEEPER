@@ -1,0 +1,2 @@
+el jugador .:A:. obtuvo puntaje de: 1
+el jugador .:B:. obtuvo puntaje de: 0
