@@ -1,8 +1,10 @@
 #ifndef JUGADOR_H_
 #define JUGADOR_H_
+
 # include "jugada.h"
 # include "mapa.h"
 # include "constantes.h"
+# include "pantalla.h"
 
 
 class Jugador {
